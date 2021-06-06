@@ -287,3 +287,15 @@
 	注：@ManageBean和@Named的作用和@Component作用一致，没有添加默认扫描@Service、@Repository、@Controller，是因为这些注解都间接继承了@Component
 ~~~
 
+
+
+> this()的作用
+
+~~~txt
+1.创建并设置容器当中的Environment属性。即默认为StandardEnvironment类。
+2.创建并设置容器当中的条件解析器,即ConditionEvaluator，其内部实际委托给内部类ConditionContextImpl
+3.注册6个后置处理器到容器当中。注：仅是生成了后置处理器的BeanDefinition持有至 ，还并没有进行bean解析和后置处理的执行。
+4.BeanDefinitionMpa中只有5个BeanDefinition，PersistenceAnnotationBeanPostProcessor这个BeanDefinition并未放入Map中，因为jpaPresent是false（//TODO）
+5.创建BeanDefinition扫描器，即：创建注册默认过滤器  @Component 注解，包含：@Repository  @Service  @Controller
+~~~
+
